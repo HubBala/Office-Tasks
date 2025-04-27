@@ -1,0 +1,99 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - symptom_report
+  - ask_diagnosis
+  - ask_treatment
+  - ask_prevention
+  - ask_condition_info
+  - ask_general_health
+  - ask_next_steps
+
+entities:
+  - symptom
+
+slots:
+  symptom: 
+    type: list
+    influence_conversation: true
+    mappings: 
+      - type: from_entity
+        entity: symptom 
+
+responses:
+  utter_greet:
+    - text: "Hi there! I'm your health assistant. How can I help you today?"
+
+  utter_symptom_report:
+    - text: "It sounds like you're experiencing multiple symptoms. Please consult a doctor for a professional diagnosis."
+
+  utter_ask_diagnosis:
+    - text: "Based on your symptoms, you might be dealing with a common condition, but it's best to get checked by a doctor."
+
+  utter_ask_treatment:
+    - text: "Treatment depends on the condition. Can you specify your symptoms or the issue you're facing?"
+
+  utter_ask_prevention:
+    - text: "Maintaining hygiene, a healthy lifestyle, and good nutrition can help prevent many illnesses."
+
+  utter_ask_condition_info:
+    - text: "That's a great question. I can provide general info, but for a full explanation, consider speaking with a healthcare professional."
+
+  utter_ask_general_health:
+    - text: "A healthy lifestyle includes exercise, proper diet, hydration, sleep, and stress management."
+
+  utter_suggest_test:
+    - text: "Based on your symptoms, you should consider seeing a doctor for further testing."
+
+  utter_goodbye:
+    - text: "Take care. Wishing you a speedy recovery!"
+
+actions:
+  - action_provide_diagnosis
+  - action_provide_tretment
+  - action_provide_prevention
+  - action_provide_condition_info
+  - action_provide_general_health
+  - action_suggest_next_steps
+  
+
+
+
+
+
+# version: "3.1"
+
+# intents:
+#   - greet
+#   - goodbye
+#   - affirm
+#   - deny
+#   - mood_great
+#   - mood_unhappy
+#   - bot_challenge
+
+# responses:
+#   utter_greet:
+#   - text: "Hey! How are you?"
+
+#   utter_cheer_up:
+#   - text: "Here is something to cheer you up:"
+#     image: "https://i.imgur.com/nGF1K8f.jpg"
+
+#   utter_did_that_help:
+#   - text: "Did that help you?"
+
+#   utter_happy:
+#   - text: "Great, carry on!"
+
+#   utter_goodbye:
+#   - text: "Bye"
+
+#   utter_iamabot:
+#   - text: "I am a bot, powered by Rasa."
+
+# session_config:
+#   session_expiration_time: 60
+#   carry_over_slots_to_new_session: true

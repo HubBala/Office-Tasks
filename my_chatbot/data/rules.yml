@@ -1,0 +1,62 @@
+version: "3.1"
+
+rules:
+- rule: Greet and welcome
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Respond to symptom report
+  steps:
+  - intent: symptom_report
+  - action: action_provide_diagnosis
+
+- rule: Respond to diagnosis request
+  steps:
+  - intent: ask_diagnosis
+  - action: utter_ask_diagnosis
+
+- rule: Respond to treatment questions
+  steps:
+  - intent: ask_treatment
+  - action: utter_ask_treatment
+
+- rule: Respond to prevention questions
+  steps:
+  - intent: ask_prevention
+  - action: utter_ask_prevention
+
+- rule: Respond to condition info request
+  steps:
+  - intent: ask_condition_info
+  - action: utter_ask_condition_info
+
+- rule: Respond to general health questions
+  steps:
+  - intent: ask_general_health
+  - action: utter_ask_general_health
+
+- rule: Ask next steps
+  steps:
+  - intent: ask_next_steps
+  - action: utter_suggest_test
+
+- rule: Say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+
+# version: "3.1"
+
+# rules:
+
+# - rule: Say goodbye anytime the user says goodbye
+#   steps:
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+# - rule: Say 'I am a bot' anytime the user challenges
+#   steps:
+#   - intent: bot_challenge
+#   - action: utter_iamabot

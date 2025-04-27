@@ -1,0 +1,11 @@
+{
+  "0": "ask_condition_info",
+  "1": "ask_diagnosis",
+  "2": "ask_general_health",
+  "3": "ask_next_steps",
+  "4": "ask_prevention",
+  "5": "ask_treatment",
+  "6": "goodbye",
+  "7": "greet",
+  "8": "symptom_report"
+}

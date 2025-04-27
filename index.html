@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagnostic Prediction</title>
+</head>
+<body>
+    <h2>Enter Patient Details</h2>
+    <form action="/predict" method="post">
+        Age: <input type="number" name="age" required><br>
+        Sex (1=Male, 0=Female): <input type="number" name="sex" required><br>
+        Smoking (1=Yes, 0=No): <input type="number" name="smoking" required><br>
+        Blood Pressure: <input type="number" name="blood_pressure" required><br>
+        Cholesterol: <input type="number" name="cholesterol" required><br>
+        <button type="submit">Predict</button>
+    </form>
+    <h3>{{ prediction_text }}</h3>
+</body>
+</html>

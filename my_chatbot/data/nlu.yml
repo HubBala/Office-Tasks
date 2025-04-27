@@ -1,0 +1,98 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - Hello
+      - Hi there!
+      - Hey
+
+  - intent: symptom_report
+    examples: |
+      - I have a headache and fever. What could it be?
+      - I feel nauseous and dizzy, what should I do?
+      - I have chest pain and difficulty breathing, is that serious?
+      - Why do I have a sore throat and a cough?
+      - I’m feeling very weak and tired, could this be a vitamin deficiency?
+      - I have a runny nose and a fever, is it the flu?
+      - I’ve been having stomach aches and diarrhea for two days. What could it be?
+      - My back hurts badly, what can I do for relief?
+      - I’ve been coughing a lot and I’m having trouble breathing, should I go to a doctor?
+      - I’ve been feeling a tightness in my chest, should I be concerned?
+
+  - intent: ask_diagnosis
+    examples: |
+      - Do I have a cold or flu?
+      - Can you tell me what’s wrong with me based on these symptoms?
+      - Is this just a common cold or something more serious?
+      - Could this be COVID-19? What are the symptoms?
+      - I have headaches and fatigue, do I have migraines?
+      - What causes a stuffy nose and sore throat?
+      - Could my symptoms be related to allergies or something else?
+      - What do I do if I feel feverish and have chills?
+      - How do I know if I have the flu or a cold?
+
+  - intent: ask_treatment
+    examples: |
+      - What should I take for a headache?
+      - How do I treat a sore throat?
+      - What medicine can help with a fever?
+      - How can I relieve muscle pain?
+      - What’s the best treatment for cold symptoms?
+      - How do I manage my back pain?
+      - What’s a good remedy for a cough?
+      - How should I treat a stomach ache?
+      - What can I do to prevent a cold?
+      - What can I do for joint pain?
+
+  - intent: ask_prevention
+    examples: |
+      - How can I prevent the flu?
+      - What should I do to avoid getting sick?
+      - How do I protect myself from COVID-19?
+      - What are some ways to boost my immune system?
+      - How can I stay healthy during flu season?
+      - How can I avoid back pain?
+      - How do I prevent getting a cold?
+      - What steps should I take to avoid catching infections?
+      - What should I eat to improve my immune system?
+      - How do I reduce stress to avoid headaches?
+
+  - intent: ask_condition_info
+    examples: |
+      - What are the symptoms of diabetes?
+      - What are the common signs of heart disease?
+      - How do I know if I have hypertension?
+      - What are the first signs of a stroke?
+      - How can I tell if I’m having an allergic reaction?
+      - What causes asthma?
+      - What are the symptoms of depression?
+      - How can I manage high blood pressure?
+      - What are the symptoms of a thyroid problem?
+      - What are the signs of a heart attack?
+
+  - intent: ask_general_health
+    examples: |
+      - How can I improve my diet?
+      - What are the benefits of regular exercise?
+      - How much water should I drink daily?
+      - What’s the best way to stay fit?
+      - How can I improve my sleep quality?
+      - What’s the best diet for weight loss?
+      - How do I know if I’m stressed?
+      - What is a balanced diet?
+      - What supplements should I take for better health?
+      - How can I prevent heart disease?
+
+  - intent: ask_next_steps
+    examples: |
+      - What should I do next?
+      - What are the next steps?
+      - Should I get tested?
+      - Do I need to visit a doctor?
+
+  - intent: goodbye
+    examples: |
+      - Bye
+      - See you later
+      - Goodbye

@@ -1,0 +1,27 @@
+# Python virtual environments
+env/
+venv/
+.myvenv/
+myvenv1/
+rasaenv/
+*.env
+*.venv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE folders
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node.js
+node_modules/
