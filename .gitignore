@@ -3,7 +3,7 @@ env/
 venv/
 .myvenv/
 myvenv1/
-rasaenv/
+rasavenv/
 *.env
 *.venv
 
