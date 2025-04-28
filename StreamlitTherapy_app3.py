@@ -8,7 +8,7 @@ import pickle
 from tensorflow.keras.models import load_model
 
 # Load model and preprocessors
-model = load_model("hybrid_nn_model.h5")
+model = load_model("hybrid_nn_model.h5", compile=False)
 
 with open("scaler.pkl", "rb") as f:
     scaler = pickle.load(f)

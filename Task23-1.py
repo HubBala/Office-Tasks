@@ -2,6 +2,7 @@
 import json
 import pandas as pd
 import numpy as np
+import tensorflow as tf 
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
@@ -82,3 +83,5 @@ with open("label_encoders.pkl", "wb") as f:
     }, f)
 
 print("✅ Model and encoders saved successfully!")
+
+print(tf.__version__)
