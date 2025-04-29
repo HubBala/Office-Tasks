@@ -1,79 +1,130 @@
+
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from pmdarima import auto_arima
+# from sklearn.metrics import mean_absolute_error, mean_squared_error
+# import warnings
+# warnings.filterwarnings("ignore", category=FutureWarning)
+# # Load data
+# df = pd.read_csv(r"C:\Users\galli\Documents\Office-Tasks\HDHI Admission data.csv")
+# missing_values = df.isnull().sum()
+# print("missing values\n", missing_values)
+
+
+# df['D.O.A'] = pd.to_datetime(df['D.O.A'], errors='coerce')
+# df = df.dropna(subset=['D.O.A'])
+
+# # Group by date
+# daily_admissions = df.groupby('D.O.A').size().reset_index(name='Admissions') # to have the numbert of admissions per day 
+# daily_admissions = daily_admissions.set_index('D.O.A').asfreq('D', fill_value=0)# as the dataset has the data that has not in series so making the no admossion days with '0'
+
+# print(daily_admissions)
+
+
+# # Split into train/test (last 30 days as test)
+# train = daily_admissions.iloc[:-30]
+# test = daily_admissions.iloc[-30:]
+
+# # Train model
+# model = auto_arima(train['Admissions'], seasonal=False, trace=True)
+# forecast = model.predict(n_periods=30)
+
+# # Plot
+# plt.figure(figsize=(12, 6))
+# #plot(train.index, train['Admissions'], label="Train")
+# #plt.plot(test.index, test['Admissions'], label="Test")
+# plt.plot(test.index, forecast, label="Forecast", color='red')
+# plt.legend()
+# plt.title("Admission Forecast")
+# plt.grid(True)
+# plt.tight_layout()
+# plt.show()
+
+# # Accuracy
+# actual = test['Admissions'].values
+# mae = mean_absolute_error(test['Admissions'], forecast)
+# mse = mean_squared_error(test['Admissions'], forecast)
+# rmse = np.sqrt(mse)
+
+# print(f"MAE: {mae:.2f}, MSE: {mse:.2f}, RMSE: {rmse:.2f}")
+
+# print("Columns in test DataFrame:", test.columns)
+
+# results_df = pd.DataFrame({
+#     'Actual': actual,
+#     'Predicted': forecast
+# })
+# print("\nActual vs Forecasted Admissions:\n", results_df)
+
+
+
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from pmdarima import auto_arima
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 
-
-file_path = r"C:\Users\galli\Documents\Office-Tasks\HDHI Admission data.csv\HDHI Admission data.csv" 
-df = pd.read_csv(file_path)
-# df.info()
+# Load data
+df = pd.read_csv(r"C:\Users\galli\Documents\Office-Tasks\HDHI Admission data.csv")
 missing_values = df.isnull().sum()
-print("missing values:", missing_values)
+print("Missing values:\n", missing_values)
 
-# DROP THE BNP column  as it has 8441 missing values
-df = df.drop(columns=['BNP'])
+# Convert date column
+df['D.O.A'] = pd.to_datetime(df['D.O.A'], errors='coerce')
+df = df.dropna(subset=['D.O.A'])
 
-# filling the remaining columns with median and mode
-df['EF'] = pd.to_numeric(df['EF'], errors='coerce') # for the values cannot be converted to numeric
-df['TLC'] = pd.to_numeric(df['TLC'], errors='coerce')
+# Group by date and fill missing dates with 0 admissions
+daily_admissions = df.groupby('D.O.A').size().reset_index(name='Admissions')
+daily_admissions = daily_admissions.set_index('D.O.A').asfreq('D', fill_value=0)
 
-df['EF'] = df['EF'].fillna(df['EF'].median())
-df['TLC'] = df['TLC'].fillna(df['TLC'].median())
+print(daily_admissions.head())
 
-df['HB'] = df['HB'].fillna(df['HB'].mode()[0])
+# Train-test split (last 30 days for test)
+train = daily_admissions.iloc[:-30]
+test = daily_admissions.iloc[-30:]
 
-df['D.O.A'] = pd.to_datetime(df['D.O.A'], errors='coerce')  # Convert D.O.A to datetime
-df['D.O.D'] = pd.to_datetime(df['D.O.D'], errors='coerce')  # Convert D.O.D to datetime
+# Train SARIMA model using auto_arima with seasonality
+model = auto_arima(train['Admissions'],
+                   seasonal=True,
+                   m=7,  # weekly seasonality (adjust if needed)
+                   trace=True,
+                   suppress_warnings=True,
+                   stepwise=True,
+                   error_action="ignore")
 
-# Calculate the length of stay
-df['length_of_stay'] = (df['D.O.D'] - df['D.O.A']).dt.days
+# Forecast next 30 days
+forecast = model.predict(n_periods=30)
 
-df = pd.get_dummies(df, columns=['GENDER', 'RURAL'], drop_first=True)
-
-from sklearn.preprocessing import LabelEncoder
-
-le = LabelEncoder()
-df['OUTCOME'] = le.fit_transform(df['OUTCOME'])
-
-from sklearn.preprocessing import StandardScaler
-
-
-numerical_cols = ['AGE', 'DURATION OF STAY', 'duration of intensive unit stay', 'SMOKING', 'ALCOHOL', 'DM', 
-                  'HTN', 'CAD', 'PRIOR CMP', 'CKD', 'RAISED CARDIAC ENZYMES', 'EF', 'SEVERE ANAEMIA', 
-                  'ANAEMIA', 'STABLE ANGINA', 'ACS', 'STEMI', 'HEART FAILURE', 'HFREF', 'HFNEF', 
-                  'VALVULAR', 'AKI', 'CVA INFRACT', 'AF', 'PSVT', 'UTI', 'NEURO CARDIOGENIC SYNCOPE', 
-                  'INFECTIVE ENDOCARDITIS', 'DVT', 'CARDIOGENIC SHOCK', 'PULMONARY EMBOLISM']
-numerical_cols = [col for col in numerical_cols if col in df.columns]
-
-scaler = StandardScaler()
-df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
-
-df['DOA_month'] = df['D.O.A'].dt.month
-df['DOA_year'] = df['D.O.A'].dt.year
-df['DOA_day_of_week'] = df['D.O.A'].dt.dayofweek
-
-df['month_year'] = df['month year'].apply(pd.to_datetime, format='%b-%y')
-
-# Group by 'month_year' to get monthly admissions count
-admissions_per_month = df.groupby('month_year').size().reset_index(name='admissions')
-
-# Now admissions_per_month contains the time-series data for forecasting
-
-import matplotlib.pyplot as plt 
-from statsmodels.tsa.arima.model import ARIMA
-from prophet import Prophet
-
-train = admissions_per_month[:-12]
-test = admissions_per_month[-12:]
-
-model = ARIMA(train['admissions'], order=(5,1,0))
-model_fit = model.fit()
-
-forecast = model_fit.forecast(steps=12)
-
-# plot 
-plt.figure(figsize=(10,6))
-plt.plot(admissions_per_month['month_year'], admissions_per_month['admissions'], label='Actual Admissions')
-plt.plot(pd.date_range(start=test['month_year'].iloc[0], periods=12, freq='ME'), forecast, label='Forecasted Admissions', color='red')
+# Plot actual and forecast
+plt.figure(figsize=(12, 6))
+plt.plot(train.index, train['Admissions'], label="Train")
+plt.plot(test.index, test['Admissions'], label="Test")
+plt.plot(test.index, forecast, label="Forecast", color='red')
 plt.legend()
-plt.title('Patient Admission Forecast')
-plt.xlabel('Date')
-plt.ylabel('Number of Admissions')
+plt.title("Admission Forecast using SARIMA")
+plt.xlabel("Date")
+plt.ylabel("Number of Admissions")
+plt.grid(True)
+plt.tight_layout()
 plt.show()
+
+# Accuracy metrics
+actual = test['Admissions'].values
+mae = mean_absolute_error(actual, forecast)
+mse = mean_squared_error(actual, forecast)
+rmse = np.sqrt(mse)
+
+print(f"\nMAE: {mae:.2f}")
+print(f"MSE: {mse:.2f}")
+print(f"RMSE: {rmse:.2f}")
+
+# Show actual vs predicted
+results_df = pd.DataFrame({
+    'Actual': actual,
+    'Predicted': forecast
+}, index=test.index)
+
+print("\nActual vs Forecasted Admissions:\n", results_df.head(20))
