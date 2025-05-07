@@ -1,3 +1,5 @@
+# Task 26 -- Sentiment analysis used Logistic regression with NLP
+
 import pandas as pd
 import pandas as pd
 from textblob import TextBlob
@@ -12,14 +14,15 @@ data = pd.read_csv('hospital_feedback.csv', encoding='ISO-8859-1')
 data['label'] = data['Rating']
 data['label'] = data['label'].str.strip()
 
+# To print the count of popsitive, negative, neutral.
 print(data['label'].value_counts())
-
 
 # for converting text to numerical
 vectorizer = CountVectorizer(stop_words='english')
 X = vectorizer.fit_transform(data['Feedback'])
 y = data['label']
 
+# saving the vectorizer to use in the Streamlit code
 joblib.dump(vectorizer, "vectorizer.pkl")
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -32,9 +35,8 @@ y_pred = model.predict(X_test)
 # Print the classification report
 print(classification_report(y_test, y_pred, zero_division = 1))
 
+# Saving the model use in the Streamlit code
 joblib.dump(model, "sentiment_model.pkl")
-
-
 
 def classify_feedback(Feedback):
     feedback_vector = vectorizer.transform([Feedback])
