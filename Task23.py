@@ -1,4 +1,4 @@
-# Reinforcement Learning  for recommendation of Therapies for patients
+# Recommendation System of Therapies for patients by using SVD model
 
 import json 
 import pandas as pd 
