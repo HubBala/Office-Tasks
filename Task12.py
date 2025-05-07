@@ -1,3 +1,5 @@
+# Task 12 --- NLP techniques to extract medical terms
+
 import spacy
 
 # Load the scispaCy model
