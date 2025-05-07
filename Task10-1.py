@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns  # For pair plots
-
+import time 
 # Load the dataset
 df = pd.read_csv('Lung Cancer Dataset Innv.csv')
 df['PULMONARY_DISEASE'] = df['PULMONARY_DISEASE'].map({'YES': 1, 'NO': 0})
@@ -39,9 +39,14 @@ plt.show() '''
 
 # Apply K-means Clustering with the chosen optimal k
 optimal_k = 3  # You can adjust this based on the elbow plot
+start_time = time.time()
+
 kmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)
 df['Cluster'] = kmeans.fit_predict(X_scaled)
 X_scaled_df['Cluster'] = df['Cluster'] # Add cluster labels to the scaled DataFrame
+
+end_time = time.time()
+print(f"Clustering completed in: {end_time - start_time:.6f} seconds")
 
 print("\nCluster Assignments:\n", df['Cluster'].value_counts().sort_index())
 
@@ -65,7 +70,7 @@ for cluster in range(optimal_k):
     # Consider symptoms, risk factors, etc.
 
 # Visualization using Pair Plots (for a multi-dimensional view)
-plt.figure(figsize=(12, 12))
+plt.figure(figsize=(10, 6))
 sns.pairplot(df, hue='Cluster', diag_kind='kde')
 plt.suptitle("Pair Plot of Clusters", y=1.02)
 plt.show()

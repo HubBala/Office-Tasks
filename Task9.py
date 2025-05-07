@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.tree import DecisionTreeClassifier
 import matplotlib.pyplot as plt
-
+import time
 
 
 df = pd.read_csv('HeartDiseaseTrain-Test.csv')
@@ -37,8 +37,18 @@ y = df['target']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
 
 # Random forest 
-rf_classifier = RandomForestClassifier(n_estimators = 100, random_state = 42)
+rf_classifier = RandomForestClassifier(n_estimators = 30, max_depth= 5, n_jobs= -1, random_state = 42)
 rf_classifier.fit(X_train, y_train)
+
+start_rf = time.time()
+rf_predictions = rf_classifier.predict(X_test)
+rf_time = time.time() - start_rf
+
+rf_accuracy = accuracy_score(y_test, rf_predictions)
+print(f"Random Forest Accuracy: {rf_accuracy:.4f}")
+print(f"Prediction Time (Random Forest): {rf_time:.6f} seconds")
+
+
 y_pred = rf_classifier.predict(X_test)
 rf_accuracy = accuracy_score(y_test, y_pred)
 classification_rep = classification_report(y_test, y_pred)
@@ -47,6 +57,15 @@ classification_rep = classification_report(y_test, y_pred)
 # Decision Tree
 dt_classifier = DecisionTreeClassifier(max_depth = 4, random_state = 42)
 dt_classifier.fit(X_train, y_train)
+
+start_dt = time.time()
+dt_predictions = dt_classifier.predict(X_test)
+dt_time = time.time() - start_dt
+
+dt_accuracy = accuracy_score(y_test, dt_predictions)
+print(f"Decision Tree Accuracy: {dt_accuracy:.4f}")
+print(f"Prediction Time (Decision Tree): {dt_time:.6f} seconds")
+
 y_pred = dt_classifier.predict(X_test)
 dt_accuracy = accuracy_score(y_test, y_pred)
 classification_rep = classification_report(y_test, y_pred)

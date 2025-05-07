@@ -1,0 +1,49 @@
+Task-9 RandomForest and DecisionTree
+optimizations:
+    Reduced Raandom Forest trees from 100 to 30 to speed up predictions 
+    reduced max depth of trees to 5 and 4
+Results:
+    Prediction time is reduced significantly, accuracy remained high and comparable 
+
+Task-10 K-Means clustering model
+optimizations:
+    Removed unnecessary plots and used the k with elbow method and add n_initials to 10
+Results:
+    The model runs fast and didnt get toggel.
+
+Task-11: 
+optimizations:
+    Add infer_objects to remove the without any warning and used the max_depth to 4 
+Results:
+    The model gives better classifications and no arguments
+
+Task-13:
+optimizations :
+    Try adding the pipeline to the Navi Bayes model 
+Results: 
+    The result been the same
+
+Task-15: SVM MODEL 
+optimizations:
+    Added the Standard scaler 
+    Used the Pipeline and used kernel rfb to linear
+    changed the model complexity c from 1 to 10 and others
+Results:
+    The R2 score goes from o.39 to 0.95 and the model gives less errors which is MSE from 0.15 to 0.012
+
+Task16: Neural Network using Sequential model
+optimizations:
+    Used the dropout to prevent the overfitting
+    Increased the number of epoches from 50 to 100 and add the early stopping
+Results:
+    The test accuracy and the final training accuracyand the final validation accuracy increased
+    The jump is from 0.96 to 0.99  both the test and validation
+    The training is jumped from 0.96 to 0.9756 
+
+Task17: RNN model
+optimizations: 
+    Used the MinMax scaler and used the dropout and the early stopping
+Results:
+    The plot had a significant change in the predictions
+
+Task 18:
