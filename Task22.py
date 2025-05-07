@@ -1,3 +1,5 @@
+# Task 22 -- Reinforcement Learning model using the kmeans  
+
 import numpy as np
 import pandas as pd
 import random
@@ -26,9 +28,9 @@ features_scaled = scaler.fit_transform(features)
 kmeans = KMeans(n_clusters=100, random_state=42)
 states = kmeans.fit_predict(features_scaled)
 
-# Save the scaler and kmeans for later use
+# Save the scaler and kmeans for later use in Streamlit_Task22.py
 with open("scaler.pkl", "wb") as f:
-    pickle.dump(scaler, f)
+    pickle.dump(scaler, f)99
     
 with open("kmeans.pkl", "wb") as f:
     pickle.dump(kmeans, f)

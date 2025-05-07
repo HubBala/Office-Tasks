@@ -1,4 +1,4 @@
-# Task23-1.py  using the NN for the Recommendation system and a hybrid model
+# Task23-1.py  using the NN for the Recommendation system and a hybrid model content based model
 import json
 import pandas as pd
 import numpy as np
