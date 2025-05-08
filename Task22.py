@@ -30,7 +30,7 @@ states = kmeans.fit_predict(features_scaled)
 
 # Save the scaler and kmeans for later use in Streamlit_Task22.py
 with open("scaler.pkl", "wb") as f:
-    pickle.dump(scaler, f)99
+    pickle.dump(scaler, f)
     
 with open("kmeans.pkl", "wb") as f:
     pickle.dump(kmeans, f)

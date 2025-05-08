@@ -31,7 +31,7 @@ optimizations:
 Results:
     The R2 score goes from o.39 to 0.95 and the model gives less errors which is MSE from 0.15 to 0.012
 
-Task16: Neural Network using Sequential model
+Task-16: Neural Network using Sequential model
 optimizations:
     Used the dropout to prevent the overfitting
     Increased the number of epoches from 50 to 100 and add the early stopping
@@ -40,15 +40,15 @@ Results:
     The jump is from 0.96 to 0.99  both the test and validation
     The training is jumped from 0.96 to 0.9756 
 
-Task17: RNN model
+Task-17: RNN model
 optimizations: 
     Used the MinMax scaler and used the dropout and the early stopping
 Results:
     The plot had a significant change in the predictions
 
-Task 18:
+Task-18:
 
-Task 19: Feature importance by shap
+Task-19: Feature importance by shap
 optimizations:
     Used the standard scaler to scale the model and changed the max_depth to 5.
     n_estimators to 200 and  max_features to sqrt from 2 
@@ -56,11 +56,35 @@ Results:
     The model performence is better after scaling and optimization.
     The feature importance remains same with low changes.
 
-Task 21: 
+Task-21: 
 optimizations: 
     The changes are added to the models of Logistic, SVM, NeuralNetwork.
 Results:
     There is not much difference in the performance of the models
 
-Task22:
+Task-22:Reinforcement Learning by using Q-table Learning
+optimizations: 
+    Precomputed rounded states and used enumerate() in the loop.
+    Removed the unused next_state.
+    Used random.random() instead of np.random.rand()
+Results:
+    Speeds up training and avoid recomputing every loop
+    Slight improvement in the performance
+
+Task-23:
+optimizations: 
+    Used encoders for features and MinMaxScaler for the scaling.
+    Used early stopping to stop the training when no improvement in observations
+    Used different batch training with 32 and 1024.
+Results:
+    The improvement of the model and reduced unnecessary epochs 
+    Faster and Smooth training, the overfitting is prevented.
+
+Task-24: ChatBot using RASA
+
+
+Task-25: Time Series Forecasting by using ARIMA and SARIMA Model
+
+
+
 
