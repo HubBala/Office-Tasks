@@ -87,4 +87,6 @@ Task-25: Time Series Forecasting by using ARIMA and SARIMA Model
 
 
 
+Stress Testing Runable 
+locust -f locustfile.py --host=https://heart-disease-prediction-k8rj.onrender.com
 
