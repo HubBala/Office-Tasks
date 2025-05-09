@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.tree import DecisionTreeClassifier
 import matplotlib.pyplot as plt
 import time
+import pickle
 
 
 df = pd.read_csv('HeartDiseaseTrain-Test.csv')
@@ -93,6 +94,8 @@ plt.title('Model Accuracy Comparison of RandomForest vs DecisionTree')
 plt.show()
 
 # saving the model random forest
-import joblib
-joblib.dump(rf_classifier, 'diagnostic_model.pkl')
+#import joblib
+#joblib.dump(rf_classifier, 'diagnostic_model.pkl')
 
+with open('models/diagnostic_model.pkl', 'wb') as f:
+    pickle.dump(model, f)

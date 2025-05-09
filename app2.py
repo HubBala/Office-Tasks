@@ -7,7 +7,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the trained SVM model
-model = joblib.load(open('svm_model.pkl', 'rb'))
+model = joblib.load(open('svm_pipeline_model.pkl', 'rb'))
 
 @app.route('/')
 def home():

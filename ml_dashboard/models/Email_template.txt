@@ -1,0 +1,10 @@
+Subject: Hello from Python
+
+Hi {name},
+
+This is a test email sent using Python's smtplib.
+
+{message}
+
+Regards,  
+Your ML Dashboard Team
