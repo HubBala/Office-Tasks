@@ -2,7 +2,8 @@
 from flask import Flask, render_template, request
 from utils.diagnostic_utils import make_prediction
 from utils.Extract_utils import extract_medical_terms
-from utils.heart_utils import heart
+from utils.heart_utils import heart_prediction
+#import joblib
 
 app = Flask(__name__)
 
@@ -49,12 +50,40 @@ def extract_terms():
     return render_template('extract_medical_terms.html')
 
 #--- api of Herat_disease Progression --->
-@app.route('/heart', methods=['POST'])
+# model = joblib.load('svm_pipeline_model.pkl')
+@app.route('/heart', methods=['GET', 'POST'])
 def heart():
-    input_data = [float(x) for x in request.form.values()]
-    prediction = model.predict([input_data])[0]
-    output = "Positive for Heart Disease progression" if prediction == 1 else "Negative for Heart Disease progression"
-    return render_template('heart_disease.html', prediction_text=f'Result: {output}')
+    prediction_text = ''
+    if request.method == 'POST':
+        try:
+            # Extracting input values from the form
+            features = [
+                float(request.form['age']),
+                int(request.form['sex']),
+                int(request.form['chest_pain_type']),
+                float(request.form['resting_blood_pressure']),
+                float(request.form['cholesterol']),
+                int(request.form['fasting_blood_sugar']),
+                int(request.form['rest_ecg']),
+                float(request.form['Max_heart_rate']),
+                int(request.form['exercise_induced_angina']),
+                float(request.form['oldpeak']),
+                int(request.form['slope']),
+                int(request.form['vessels_colored_by_flourosopy']),
+                int(request.form['thalassemia'])
+            ]
+
+            # Convert to NumPy array and reshape
+            input_data = np.array([features])
+
+            # Predict using the model
+            prediction = model.predict(input_data)[0]
+
+            prediction_text = f"Predicted Heart Disease Risk Score: {round(prediction, 2)}"
+        except Exception as e:
+            prediction_text = f"Error: {str(e)}"
+
+    return render_template('heart_disease.html', prediction_text=prediction_text)
 
 
 if __name__ == '__main__':

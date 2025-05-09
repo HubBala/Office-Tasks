@@ -3,10 +3,10 @@ import numpy as np
 
 def load_model():
 
-    model = joblib.load('models/heart_disease_model.keras')
+    model = joblib.load('models/heart_disease_model.pkl')
     return model
 
-def make_prediction(features):
+def heart_prediction(features):
     """
     Makes a prediction using the loaded model.
 

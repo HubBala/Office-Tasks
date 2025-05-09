@@ -147,5 +147,5 @@ print(f"Final Training Accuracy: {final_train_acc:.4f}")
 print(f"Final Validation Accuracy: {final_val_acc:.4f}")
 
 # Step 12: Save model and scaler
-model.save("heart_disease_model.keras")
+joblib.dump(model, "heart_disease_model.pkl")
 joblib.dump(scaler, 'scaler.pkl')
