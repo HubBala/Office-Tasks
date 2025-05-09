@@ -37,4 +37,4 @@ def send_email(to_email, name, message_body):
         print(f"Error: {e}")
 
 # Example usage
-send_email("recipient@example.com", "Ramesh", "This is a test email from the ML Dashboard.")
+send_email("naraharisettibalabhaskar@gmail.com", "Ramesh", "This is a test email from the ML Dashboard.")
