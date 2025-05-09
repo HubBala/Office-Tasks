@@ -7,15 +7,7 @@ def load_model():
     return model
 
 def heart_prediction(features):
-    """
-    Makes a prediction using the loaded model.
-
-    Parameters:
-    - features: List or array-like of numerical input features (same order as used in training)
-
-    Returns:
-    - Prediction value (float)
-    """
+ 
     model = load_model()
     
     try:

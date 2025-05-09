@@ -3,7 +3,8 @@ from flask import Flask, render_template, request
 from utils.diagnostic_utils import make_prediction
 from utils.Extract_utils import extract_medical_terms
 from utils.heart_utils import heart_prediction
-#import joblib
+import numpy as np
+import joblib
 
 app = Flask(__name__)
 
@@ -50,7 +51,7 @@ def extract_terms():
     return render_template('extract_medical_terms.html')
 
 #--- api of Herat_disease Progression --->
-# model = joblib.load('svm_pipeline_model.pkl')
+model= joblib.load('models/heart_disease_model.pkl')
 @app.route('/heart', methods=['GET', 'POST'])
 def heart():
     prediction_text = ''
@@ -72,16 +73,15 @@ def heart():
                 int(request.form['vessels_colored_by_flourosopy']),
                 int(request.form['thalassemia'])
             ]
-
-            # Convert to NumPy array and reshape
             input_data = np.array([features])
 
-            # Predict using the model
             prediction = model.predict(input_data)[0]
-
             prediction_text = f"Predicted Heart Disease Risk Score: {round(prediction, 2)}"
+        
         except Exception as e:
             prediction_text = f"Error: {str(e)}"
+
+ 
 
     return render_template('heart_disease.html', prediction_text=prediction_text)
 
