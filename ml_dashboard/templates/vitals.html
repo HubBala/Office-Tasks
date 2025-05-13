@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vitals Predictor</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_vitals.css') }}">
+</head>
+<body>
+  <h2>Vitals Prediction</h2>
+  <form action="/vitals" method="post">
+    Age: <input type="number" name="age" required><br>
+    Gender:
+    <select name="gender" required>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select><br>
+    Blood Pressure: <input type="number" name="bp" required><br>
+    Heart Rate: <input type="number" name="hr" required><br>
+    Height: <input type="number" name="height"><br> <!-- Optional -->
+    Weight: <input type="number" name="weight"><br> <!-- Optional -->
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if prediction_text %}
+    <h3>Prediction Result: {{ prediction_text }}</h3>
+  {% endif %}
+</body>
+</html>

@@ -94,6 +94,8 @@ df = pd.read_csv("HeartDiseaseTrain-Test.csv")
 
 # Step 2: One-hot encode categorical columns
 df_encoded = pd.get_dummies(df, drop_first=True)
+# Save the list of expected columns
+joblib.dump(df_encoded.drop('target', axis=1).columns.tolist(), 'expected_columns.pkl')
 
 # Step 3: Separate features and target
 X = df_encoded.drop("target", axis=1)
@@ -147,5 +149,5 @@ print(f"Final Training Accuracy: {final_train_acc:.4f}")
 print(f"Final Validation Accuracy: {final_val_acc:.4f}")
 
 # Step 12: Save model and scaler
-joblib.dump(model, "heart_disease_model.pkl")
+model.save("heart_disease_model.keras")
 joblib.dump(scaler, 'scaler.pkl')

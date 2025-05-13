@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from utils.diagnostic_utils import make_prediction
 from utils.Extract_utils import extract_medical_terms
 from utils.heart_utils import heart_prediction
+from utils.vitals_utils import vitals_prediction
 import numpy as np
 import joblib
 
@@ -51,12 +52,10 @@ def extract_terms():
     return render_template('extract_medical_terms.html')
 
 #--- api of Herat_disease Progression --->
-model= joblib.load('models/heart_disease_model.pkl')
 @app.route('/heart', methods=['GET', 'POST'])
 def heart():
-    prediction_text = ''
+    prediction_text = ""
     if request.method == 'POST':
-        try:
             # Extracting input values from the form
             features = [
                 float(request.form['age']),
@@ -73,17 +72,27 @@ def heart():
                 int(request.form['vessels_colored_by_flourosopy']),
                 int(request.form['thalassemia'])
             ]
-            input_data = np.array([features])
-
-            prediction = model.predict(input_data)[0]
-            prediction_text = f"Predicted Heart Disease Risk Score: {round(prediction, 2)}"
-        
-        except Exception as e:
-            prediction_text = f"Error: {str(e)}"
-
- 
+            prediction_text = heart_prediction(features)
 
     return render_template('heart_disease.html', prediction_text=prediction_text)
+
+
+# <---- API for Vitals model ---->
+from utils.vitals_utils import vitals_prediction  # Make sure this import exists
+
+@app.route('/vitals', methods=['GET', 'POST'])
+def vitals_predict():
+    prediction_text = ""
+    if request.method == 'POST':
+        age = int(request.form['age'])
+        gender = request.form['gender']
+        bp = float(request.form['bp'])
+        hr = float(request.form['hr'])
+
+        result = vitals_prediction(age, gender, bp, hr)
+        prediction_text = f"{result:.2f}"
+
+    return render_template('vitals.html', prediction_text=prediction_text)
 
 
 if __name__ == '__main__':

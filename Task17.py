@@ -62,7 +62,7 @@ actual_inverse = scaler.inverse_transform(y_test)
 
 # Save model and scaler
 model.save('Vitals_model.keras')
-joblib.dump(scaler, "scaler.pkl")
+joblib.dump(scaler, "Vitals_scaler.pkl")
 
 # Visualization: Actual vs Predicted for heart rate (column index 0)
 plt.figure(figsize=(10, 5))
