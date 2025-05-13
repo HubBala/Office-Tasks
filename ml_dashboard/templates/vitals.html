@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vitals Predictor</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_vitals.css') }}">
+    <meta charset="UTF-8">
+    <title>Vitals Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_vitals.css') }}">
 </head>
 <body>
-  <h2>Vitals Prediction</h2>
-  <form action="/vitals" method="post">
-    Age: <input type="number" name="age" required><br>
-    Gender:
-    <select name="gender" required>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select><br>
-    Blood Pressure: <input type="number" name="bp" required><br>
-    Heart Rate: <input type="number" name="hr" required><br>
-    Height: <input type="number" name="height"><br> <!-- Optional -->
-    Weight: <input type="number" name="weight"><br> <!-- Optional -->
-    <button type="submit">Predict</button>
-  </form>
+    <div class="container">
+        <h1>Vitals Prediction Form</h1>
+        <form method="POST">
+            <label for="age">Age:</label>
+            <input type="number" name="age" required>
 
-  {% if prediction_text %}
-    <h3>Prediction Result: {{ prediction_text }}</h3>
-  {% endif %}
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label for="bp">Blood Pressure:</label>
+            <input type="number" step="any" name="bp" required>
+
+            <label for="heart_rate">Heart Rate:</label>
+            <input type="number" step="any" name="heart_rate" required>
+
+            <label for="systolic_bp">Systolic BP:</label>
+            <input type="number" step="any" name="systolic_bp">
+
+            <label for="diastolic_bp">Diastolic BP:</label>
+            <input type="number" step="any" name="diastolic_bp">
+
+            <label for="spo2">SpO2:</label>
+            <input type="number" step="any" name="spo2">
+
+            <label for="resp_rate">Respiration Rate:</label>
+            <input type="number" step="any" name="resp_rate">
+
+            <label for="temperature">Temperature:</label>
+            <input type="number" step="any" name="temperature">
+
+            <label for="height">Height (in cm):</label>
+            <input type="number" step="any" name="height" required>
+
+            <label for="weight">Weight (in kg):</label>
+            <input type="number" step="any" name="weight" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
 </body>
 </html>

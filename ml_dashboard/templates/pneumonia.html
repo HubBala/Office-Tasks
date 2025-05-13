@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pneumonia.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Pneumonia Detection from Chest X-ray</h2>
+        
+        <form action="/pneumonia" method="POST" enctype="multipart/form-data">
+            <label for="xray_image">Upload Chest X-ray Image:</label>
+            <input type="file" name="xray_image" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+        
+        <div class="result">
+            <h3>{{ prediction_text }}</h3>
+        </div>
+    </div>
+</body>
+</html>

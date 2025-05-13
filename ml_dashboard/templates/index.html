@@ -2,45 +2,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome - Convergent ML Dashboard</title>
-    <style>
-        .welcome-container {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .welcome-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .welcome-container p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .welcome-container img {
-            width: 60%;
-            max-width: 600px;
-            margin-top: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
     <div class="welcome-container">
         <h1>Welcome to Convergent ML Dashboard</h1>
-        <p>This unified platform lets you access and interact with all your integrated Machine Learning models.</p>
+        <p>This platform lets you access and interact with all the integrated Machine Learning models.</p>
         <p>Use the navigation bar to select a specific model or functionality.</p>
         <img src="{{ url_for('static', filename='dashboard_image.png') }}" alt="Dashboard Overview Image">
+    
     </div>
-</body>
-</html>
 {% endblock %}
