@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from utils.diagnostic_utils import make_prediction
 from utils.Extract_utils import extract_medical_terms
 from utils.heart_utils import heart_prediction
+from utils.Treatment_Rec_utils import recommend_treatment
 import os 
 import numpy as np
 import joblib
@@ -52,7 +53,7 @@ def extract_terms():
     return render_template('extract_medical_terms.html', show_navbar=False)
 
 #--- api of Herat_disease Progression --->
-@app.route('/heart', methods=['GET', 'POST'])
+@app.route('/heart_disease', methods=['GET', 'POST'])
 def heart():
     prediction_text = ""
     if request.method == 'POST':
@@ -121,9 +122,32 @@ def pneumonia():
             
         except Exception as e:
             prediction_text = f"Error occurred: {e}"
-
     return render_template('pneumonia.html', prediction_text=prediction_text, show_navbar=False)
 
+#  API  for Recommendation Treatment 
+
+@app.route("/Treatment", methods=["GET", "POST"])
+def treatment():
+    if request.method == "POST":
+        try:
+            user_input = [
+                float(request.form["Pregnancies"]),
+                float(request.form["Glucose"]),
+                float(request.form["BloodPressure"]),
+                float(request.form["SkinThickness"]),
+                float(request.form["Insulin"]),
+                float(request.form["BMI"]),
+                float(request.form["DiabetesPedigreeFunction"]),
+                float(request.form["Age"]),
+            ]
+            recommended = recommend_treatment(user_input)
+            return render_template("Treatment_Rec.html", recommendation=recommended)
+        except Exception as e:
+            print("Flask route error:", e)
+            import traceback
+            traceback.print_exc()
+            return render_template("Treatment_Rec.html", recommendation="Error occurred during prediction.")
+    return render_template("Treatment_Rec.html", recommendation=None)
 
 if __name__ == '__main__':
     app.run(debug=True)

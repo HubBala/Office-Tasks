@@ -1,4 +1,4 @@
-# Task 22 -- Reinforcement Learning model using the kmeans  
+# Task 22 -- Reinforcement Learning model using the kmeans and q_table 
 
 import numpy as np
 import pandas as pd
@@ -29,7 +29,7 @@ kmeans = KMeans(n_clusters=100, random_state=42)
 states = kmeans.fit_predict(features_scaled)
 
 # Save the scaler and kmeans for later use in Streamlit_Task22.py
-with open("scaler.pkl", "wb") as f:
+with open("scalerRec.pkl", "wb") as f:
     pickle.dump(scaler, f)
     
 with open("kmeans.pkl", "wb") as f:
@@ -92,7 +92,7 @@ for episode in range(episodes):
         print(f"Episode {episode}, Total Reward: {total_reward}")
 
 # Save the Q-learning model (Q-table)
-with open("q_table.pkl", "wb") as f:
+with open("q_table_Rec.pkl", "wb") as f:
     pickle.dump(q_table, f)
 
 print("Training complete.")
