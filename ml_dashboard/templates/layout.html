@@ -5,26 +5,29 @@
     <meta charset="UTF-8">
     <title>Convergent ML Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-    <!-- Conditionally render the navbar -->
     {% if show_navbar %}
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/diagnostic">Diagnostic</a></li>
-            <li><a href="/extract_medical_terms">Extract Medical Terms</a></li>
-            <li><a href="/heart_disease">Heart Disease</a></li>
-            <li><a href="/vitals">Vitals</a></li>
-            <li><a href="/pneumonia">Pneumonia</a></li>
-            <li><a href="/Treatment">Treatment Recommendation</a></li>
-            <li><a href="/Therapy">Therapy Recommendation</a></li>
-            <li><a href="/sentiment">Sentiment</a></li>
+    <nav class="sidebar">
+        <h2 class="logo">Convergent ML</h2>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="/diagnostic"><i class="fa fa-stethoscope"></i> Diagnostic</a></li>
+            <li><a href="/extract_medical_terms"><i class="fa fa-search"></i> Extract Medical Terms</a></li>
+            <li><a href="/heart_disease"><i class="fa fa-heart"></i> Heart Disease</a></li>
+            <li><a href="/vitals"><i class="fa fa-heartbeat"></i> Vitals</a></li>
+            <li><a href="/pneumonia"><i class="fa fa-lungs"></i> Pneumonia</a></li>
+            <li><a href="/Treatment"><i class="fa fa-medkit"></i> Treatment Recommendation</a></li>
+            <li><a href="/Therapy"><i class="fa fa-pills"></i> Therapy Recommendation</a></li>
+            <li><a href="/Chatbot"><i class="fa fa-robot"></i> Medical Chatbot</a></li>
+            <li><a href="/sentiment"><i class="fa fa-smile"></i> Sentiment</a></li>
         </ul>
     </nav>
     {% endif %}
     
-    <!-- Page content from child templates will go here -->
-    {% block content %}{% endblock %}
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>

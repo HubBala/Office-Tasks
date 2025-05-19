@@ -56,7 +56,7 @@ def extract_terms():
 
 #--- api of Herat_disease Progression --->
 @app.route('/heart_disease', methods=['GET', 'POST'])
-def heart():
+def heart_disease():
     prediction_text = ""
     if request.method == 'POST':
             # Extracting input values from the form
@@ -195,6 +195,21 @@ def therapy_form():
         recommendations=recommendations,
         error_msg=error_msg
     )
+
+
+# Medical Chatbot API
+import requests
+from utils.Chatbot_utils import query_rasa_bot
+
+@app.route("/Chatbot", methods=["GET", "POST"])
+def chatbot():
+    bot_response = None
+    if request.method == "POST":
+        user_input = request.form.get("user_input")
+        if user_input:
+            bot_response = query_rasa_bot(user_input)
+    return render_template("chatbot.html", bot_response=bot_response)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

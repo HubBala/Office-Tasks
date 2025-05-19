@@ -5,7 +5,6 @@ body {
     padding: 0;
     height: 100vh;
     color: #fff;
-    overflow: hidden;
 }
 
 .overlay {
@@ -23,25 +22,20 @@ body {
     width: 400px;
     max-height: 90vh;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .scrollable-form {
     overflow-y: auto;
-    height: 60vh; /* Adjust this value if needed */
+    flex: 1;
     padding-right: 10px;
-}
-
-/* Scrollbar styling (optional) */
-.scrollable-form::-webkit-scrollbar {
-    width: 6px;
-}
-
-.scrollable-form::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 4px;
 }
 
 form {
@@ -76,11 +70,6 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 15px;
 }
 
 h3 {

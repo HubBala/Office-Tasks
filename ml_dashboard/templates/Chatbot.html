@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Rasa Chatbot UI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Chatbot_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Rasa Medical Chatbot</h1>
+        <form action="/Chatbot" method="POST">
+            <input type="text" name="user_input" placeholder="Type your message here..." required autofocus />
+            <button type="submit">Send</button>
+        </form>
+
+        {% if bot_response %}
+        <div class="response">
+            <strong>Bot:</strong> <span>{{ bot_response }}</span>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
