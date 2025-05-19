@@ -165,7 +165,7 @@ model.fit(train_ds, validation_data=val_ds, epochs=30, callbacks=callbacks)
 
 # Save final model & artifacts
 model.save("hybrid_nn_model.h5")
-with open("scaler.pkl", "wb") as f:
+with open("Therapy_scaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 with open("label_encoders.pkl", "wb") as f:
     pickle.dump({

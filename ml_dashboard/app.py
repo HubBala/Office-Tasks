@@ -4,6 +4,8 @@ from utils.diagnostic_utils import make_prediction
 from utils.Extract_utils import extract_medical_terms
 from utils.heart_utils import heart_prediction
 from utils.Treatment_Rec_utils import recommend_treatment
+from utils.Therapy_utils import get_all_conditions, predict_therapy_success, get_options
+
 import os 
 import numpy as np
 import joblib
@@ -148,6 +150,51 @@ def treatment():
             traceback.print_exc()
             return render_template("Treatment_Rec.html", recommendation="Error occurred during prediction.")
     return render_template("Treatment_Rec.html", recommendation=None)
+
+# Therapy Recommendation API 
+# Add this above the route (load condition dictionary)
+import json
+
+with open("models/datasetB_sample.json", "r") as f:
+    data = json.load(f)
+
+condition_dict = {cond["id"]: cond["name"] for cond in data["Conditions"]}
+
+@app.route("/Therapy", methods=["GET", "POST"])
+def therapy_form():
+    genders, blood_groups, conditions = get_options()
+    print("Conditions:", conditions)
+    recommendations = None
+    error_msg = None
+
+    if request.method == "POST":
+        try:
+            age = request.form.get("age", type=int)
+            gender = request.form.get("gender")
+            blood_group = request.form.get("blood_group")
+            selected_conditions = request.form.getlist("conditions")  # List of strings
+
+            if age is None or not gender or not blood_group:
+                raise ValueError("Please fill all required fields.")
+
+            if gender not in genders:
+                raise ValueError("Invalid gender selected.")
+            if blood_group not in blood_groups:
+                raise ValueError("Invalid blood group selected.")
+
+            recommendations = predict_therapy_success(age, gender, blood_group, selected_conditions)
+
+        except Exception as e:
+            error_msg = str(e)
+
+    return render_template(
+        "Therapy_form.html",
+        genders=genders,
+        blood_groups=blood_groups,
+        conditions=conditions,
+        recommendations=recommendations,
+        error_msg=error_msg
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
