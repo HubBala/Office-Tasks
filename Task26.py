@@ -23,7 +23,7 @@ X = vectorizer.fit_transform(data['Feedback'])
 y = data['label']
 
 # saving the vectorizer to use in the Streamlit code
-joblib.dump(vectorizer, "vectorizer.pkl")
+joblib.dump(vectorizer, "Sentiment_vectorizer.pkl")
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -36,7 +36,7 @@ y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred, zero_division = 1))
 
 # Saving the model use in the Streamlit code
-joblib.dump(model, "sentiment_model.pkl")
+joblib.dump(model, "Sentiment_model1.pkl")
 
 def classify_feedback(Feedback):
     feedback_vector = vectorizer.transform([Feedback])

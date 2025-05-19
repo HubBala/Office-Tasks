@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+</head>
+<body>
+    <h2>Feedback Sentiment Analyzer</h2>
+    <form method="post" action="/sentiment">
+        <textarea name="feedback" rows="5" cols="40" placeholder="Enter your feedback here..."></textarea><br>
+        <input type="submit" value="Analyze">
+    </form>
+
+    {% if result %}
+        <h3>Feedback:</h3>
+        <p>{{ feedback }}</p>
+        <h3>Predicted Sentiment:</h3>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>

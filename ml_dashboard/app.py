@@ -211,5 +211,19 @@ def chatbot():
     return render_template("chatbot.html", bot_response=bot_response)
 
 
+# Sentiment Analysis API
+from utils.sentiment_utils import classify_feedback
+
+@app.route("/sentiment", methods=["GET", "POST"])
+def sentiment():
+    if request.method == "POST":
+        feedback = request.form["feedback"]  # input name should match the HTML form
+        try:
+            result = classify_feedback(feedback)
+            return render_template("sentiment.html", feedback=feedback, result=result)
+        except Exception as e:
+            return render_template("sentiment.html", feedback=feedback, result="Error: " + str(e))
+    
+    return render_template("sentiment.html")
 if __name__ == '__main__':
     app.run(debug=True)
