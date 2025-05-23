@@ -2,11 +2,12 @@
 <html>
 <head>
     <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sentiment.css') }}">
 </head>
 <body>
-    <h2>Feedback Sentiment Analyzer</h2>
+    <h2>Sentiment Analyzer</h2>
     <form method="post" action="/sentiment">
-        <textarea name="feedback" rows="5" cols="40" placeholder="Enter your feedback here..."></textarea><br>
+        <textarea name="feedback" rows="5" cols="40" placeholder="Enter patient feedback here..."></textarea><br>
         <input type="submit" value="Analyze">
     </form>
 
