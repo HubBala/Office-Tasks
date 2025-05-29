@@ -152,7 +152,6 @@ def treatment():
     return render_template("Treatment_Rec.html", recommendation=None)
 
 # Therapy Recommendation API 
-# Add this above the route (load condition dictionary)
 import json
 
 with open("models/datasetB_sample.json", "r") as f:
@@ -217,7 +216,7 @@ from utils.sentiment_utils import classify_feedback
 @app.route("/sentiment", methods=["GET", "POST"])
 def sentiment():
     if request.method == "POST":
-        feedback = request.form["feedback"]  # input name should match the HTML form
+        feedback = request.form["feedback"] 
         try:
             result = classify_feedback(feedback)
             return render_template("sentiment.html", feedback=feedback, result=result)
