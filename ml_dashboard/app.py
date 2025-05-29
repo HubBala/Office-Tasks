@@ -162,7 +162,7 @@ condition_dict = {cond["id"]: cond["name"] for cond in data["Conditions"]}
 @app.route("/Therapy", methods=["GET", "POST"])
 def therapy_form():
     genders, blood_groups, conditions = get_options()
-    print("Conditions:", conditions)
+    # print("Conditions:", conditions)
     recommendations = None
     error_msg = None
 
