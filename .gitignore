@@ -25,3 +25,36 @@ Thumbs.db
 
 # Node.js
 node_modules/
+
+# Temporary and Cache files
+.DS_Store
+Thumbs.db
+*.log
+*.sqlite
+*.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment (If you use 'venv' or 'env')
+venv/
+env/
+
+# Data Science / Machine Learning Models & Data
+# Ignore all models and serialized objects by default.
+# Only commit small utility scripts, not large binaries.
+*.pkl
+*.h5
+*.keras
+*.tar.gz
+*.csv
+*.xlsx
+*.zip
+*.json 
+
+# Rasa Chatbot specific
+my_chatbot/.rasa/ 
+my_chatbot/models/
