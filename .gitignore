@@ -1,6 +1,7 @@
 # Python virtual environments
 env/
 venv/
+venv310/
 .myvenv/
 myvenv1/
 rasavenv/
