@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,5 +15,207 @@
         <button type="submit">Predict</button>
     </form>
     <h3>{{ prediction_text }}</h3>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Risk Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mb-4">Heart Disease Risk Prediction</h2>
+
+    <form action="/predict" method="post">
+        <!-- Age -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Age</label>
+                <input type="number" class="form-control" name="age" id="ageInput" value="0" required>
+            </div>
+            <!-- Sex -->
+            <div class="col-md-6 mb-3">
+                <label>Sex</label>
+                <select class="form-control" name="sex" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Chest Pain -->
+        <div class="mb-3">
+            <label>Chest Pain Type</label>
+            <select class="form-control" name="chest_pain_type" required>
+                <option value="0">Typical Angina</option>
+                <option value="1">Atypical Angina</option>
+                <option value="2">Non-anginal Pain</option>
+                <option value="3">Asymptomatic</option>
+            </select>
+        </div>
+
+        <!-- Resting Blood Pressure -->
+        <div class="mb-3">
+            <label>Resting Blood Pressure</label>
+            <input type="number" class="form-control" name="resting_blood_pressure" id="bpInput" value="120" required>
+        </div>
+
+        <!-- Cholesterol -->
+        <div class="mb-3">
+            <label>Cholesterol</label>
+            <input type="number" class="form-control" name="cholesterol" id="cholInput" value="200" required>
+        </div>
+
+        <!-- Fasting Blood Sugar -->
+        <div class="mb-3">
+            <label>Fasting Blood Sugar</label>
+            <select class="form-control" name="fasting_blood_sugar" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <!-- Rest ECG -->
+        <div class="mb-3">
+            <label>Rest ECG</label>
+            <select class="form-control" name="rest_ecg" required>
+                <option value="0">Normal</option>
+                <option value="1">ST-T Wave Abnormality</option>
+                <option value="2">Left Ventricular Hypertrophy</option>
+            </select>
+        </div>
+
+        <!-- Max Heart Rate -->
+        <div class="mb-3">
+            <label>Max Heart Rate</label>
+            <input type="number" class="form-control" name="max_heart_rate" id="hrInput" value="120" required>
+        </div>
+
+        <!-- Exercise Induced Angina -->
+        <div class="mb-3">
+            <label>Exercise Induced Angina</label>
+            <select class="form-control" name="exercise_induced_angina" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <!-- Oldpeak -->
+        <div class="mb-3">
+            <label>ST Depression (Oldpeak)</label>
+            <input type="number" class="form-control" name="oldpeak" id="oldpeakInput" step="0.1" value="0" required>
+        </div>
+
+        <!-- Slope -->
+        <div class="mb-3">
+            <label>Slope of Peak Exercise ST Segment</label>
+            <select class="form-control" name="slope" required>
+                <option value="0">Upsloping</option>
+                <option value="1">Flat</option>
+                <option value="2">Downsloping</option>
+            </select>
+        </div>
+
+        <!-- Number of Vessels -->
+        <div class="mb-3">
+            <label>Number of Major Blood Vessels</label>
+            <select class="form-control" name="vessels_colored_by_fluoroscopy" required>
+                <option value="0">0 Vessels Detected</option>
+                <option value="1">1 Vessel Detected</option>
+                <option value="2">2 Vessels Detected</option>
+                <option value="3">3 Vessels Detected</option>
+            </select>
+        </div>
+
+        <!-- Thalassemia -->
+        <div class="mb-3">
+            <label>Thalassemia</label>
+            <select class="form-control" name="thalassemia" required>
+                <option value="1">Normal</option>
+                <option value="2">Fixed Defect</option>
+                <option value="3">Reversable Defect</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Predict Risk</button>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result-box alert alert-info text-center">
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Define numeric fields and their min/max values
+    const numberFields = [
+        {id: 'ageInput', min: 0, max: 120, step: 1},
+        {id: 'bpInput', min: 0, max: 300, step: 1},
+        {id: 'cholInput', min: 0, max: 1000, step: 1},
+        {id: 'hrInput', min: 60, max: 220, step: 1},
+        {id: 'oldpeakInput', min: 0, max: 10, step: 0.1}
+    ];
+
+    numberFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        input.value = field.min;
+
+        // Prevent typing invalid characters
+        input.addEventListener('keydown', function(e) {
+            const allowedKeys = ['Backspace','Delete','Tab','Escape','Enter','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'];
+            if (allowedKeys.includes(e.key)) return;
+            if (e.key === '-' || isNaN(Number(e.key))) {
+                e.preventDefault();
+            }
+        });
+
+        // Clamp value on typing/paste/spinner
+        input.addEventListener('input', () => {
+            let val = parseFloat(input.value);
+            if (isNaN(val) || val < field.min) val = field.min;
+            if (val > field.max) val = field.max;
+            input.value = val;
+        });
+
+        // Override spinner arrows
+        input.addEventListener('keydown', function(e) {
+            let val = parseFloat(input.value) || field.min;
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (val < field.max) input.value = (val + field.step).toFixed(field.step % 1 === 0 ? 0 : 1);
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (val > field.min) input.value = (val - field.step).toFixed(field.step % 1 === 0 ? 0 : 1);
+            }
+        });
+    });
+});
+</script>
+
 </body>
 </html>
